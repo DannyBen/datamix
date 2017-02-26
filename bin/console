@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
-
 require "pry"
 require "datamix"
-
 using DataMix
-
 binding.pry

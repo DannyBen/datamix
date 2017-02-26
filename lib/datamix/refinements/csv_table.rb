@@ -3,6 +3,7 @@ require 'terminal-table'
 module DataMix
   refine CSV::Table do
     
+    # Delete all rows that have one or more empty or nil values
     def delete_empty_rows
       delete_if do |row|
         row.fields.include? nil or row.include? ''
@@ -15,12 +16,8 @@ module DataMix
       end
     end
 
-    def drop(*desired_cols)
-      desired_cols.each do |col|
-        delete col
-      end
-    end
-
+    # Extract a regular expression pattern from a column, and store it
+    # in the same or in a new column
     def extract(pattern, from:, to: nil)
       to ||= from
       by_row.each do |row|
@@ -34,6 +31,7 @@ module DataMix
       end
     end
 
+    # Join columns from another data table based on a mutual column
     def join(other, on:)
       by_row.each do |row|
         other_row = other.find { |r| r[on] == row[on] }
@@ -44,33 +42,46 @@ module DataMix
       end
     end
 
+    # Keep one or more columns, and remove the rest
     def keep(*desired_cols)
       headers.each do |col|
         delete col unless desired_cols.include? col
       end
     end
 
+    # Print the first 10 lines
     def preview
       show 10
     end
 
-    def rename(source_col, target_col)
-      by_col[target_col] = by_col[source_col]
-      delete source_col
+    # Remove one or more columns
+    def remove(*desired_cols)
+      desired_cols.each do |col|
+        delete col
+      end
+    end
+
+    # Rename a column
+    def rename(from, to:)
+      by_col[to] = by_col[from]
+      delete from
     end
     
+    # Save to a CSV or TSV file
     def save_as(filename)
       ext = File.extname(filename).downcase
       data = ext == '.csv' ? to_s : to_tsv
       File.write filename, data
     end
 
+    # Print some or all rows
     def show(rows=:all)
       table = rows == :all ? all : first(rows)
       rows = table.map { |row| row.fields }
       puts Terminal::Table.new headings: headers, rows: rows
     end
 
+    # Convert table to a TSV string
     def to_tsv
       result = [headers.join( "\t")]
       self.each do |row|
