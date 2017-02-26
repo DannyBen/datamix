@@ -1,9 +1,8 @@
 #!/usr/bin/env ruby
 
-require "irb"
-require "irb/completion" # easy tab completion
-require "fredric"
+require "pry"
+require "datamix"
 
-include Fredric
+using DataMix
 
-IRB.start
+binding.pry
