@@ -12,17 +12,14 @@ module DataMix
 
     def derive(&_block)
       by_row.each_with_index.map do |_value, index|
-        yield by_row, index
+        yield index
       end
     end
 
-    # Extract a regular expression pattern from a column, and store it
-    # in the same or in a new column
-    def extract(pattern, from:, to: nil)
-      to ||= from
-      by_row.each do |row|
-        row[to] = row[from][pattern]
-      end
+    # Extract a regular expression pattern from a column and return a new
+    # column
+    def extract(pattern, from:)
+      by_row.map { |row| row[from][pattern] }
     end
 
     def iterate(&_block)
@@ -66,6 +63,10 @@ module DataMix
       by_col[to] = by_col[from]
       delete from
     end
+
+    def round(col, decimals=0)
+      by_col[col] = by_col[col].map { |val| val ? val.round(decimals) : nil }
+    end
     
     # Save to a CSV or TSV file
     def save_as(filename)
@@ -76,7 +77,7 @@ module DataMix
 
     # Print some or all rows
     def show(rows=:all)
-      table = rows == :all ? all : first(rows)
+      table = rows == :all ? by_row : first(rows)
       rows = table.map { |row| row.fields }
       puts Terminal::Table.new headings: headers, rows: rows
     end
