@@ -1,43 +1,19 @@
 module DataMix
   refine Array do
     def -(other)
-      if other.respond_to? :each
-        each_with_index do |val, index|
-          self[index] = other[index] ? val - other[index] : nil
-        end
-      else
-        map { |val| val - other }
-      end
+      math_operation(other) { |left, right| left - right }
     end
 
     def +(other)
-      if other.respond_to? :each
-        each_with_index do |val, index|
-          self[index] = other[index] ? val + other[index] : nil
-        end
-      else
-        map { |val| val + other }
-      end
+      math_operation(other) { |left, right| left + right }
     end
 
     def *(other)
-      if other.respond_to? :each
-        each_with_index do |val, index|
-          self[index] = other[index] ? val * other[index] : nil
-        end
-      else
-        map { |val| val * other }
-      end
+      math_operation(other) { |left, right| left * right }
     end
 
     def /(other)
-      if other.respond_to? :each
-        each_with_index do |val, index|
-          self[index] = other[index] ? val / other[index].to_f : nil
-        end
-      else
-        map { |val| val / other.to_f }
-      end
+      math_operation(other) { |left, right| left / right.to_f }
     end
 
     def offset(rows)
@@ -67,6 +43,18 @@ module DataMix
       end
 
       Array.new(window_size-1).concat result
+    end
+
+    private
+
+    def math_operation(other)
+      if other.respond_to? :each
+        each_with_index do |val, index|
+          self[index] = other[index] ? yield(val, other[index]) : nil
+        end
+      else
+        map { |val| yield(val, other) }
+      end
     end
 
   end
