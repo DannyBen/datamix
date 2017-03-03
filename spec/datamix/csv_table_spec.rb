@@ -137,7 +137,7 @@ describe CSV::Table do
     end
   end
 
-  describe "#round", :focus do
+  describe "#round" do
     let(:subject) { CSV.table 'spec/fixtures/floats.csv' }
 
     it "rounds all values in a column to integer" do
@@ -151,120 +151,54 @@ describe CSV::Table do
     end
   end
 
+  describe "#save_as" do
+    context "with a .csv extension" do
+      let(:filename) { 'spec/tmp/test.csv' }
 
-
-  # describe "#to_tsv" do
-  #   let(:result) { subject.to_tsv }
-
-  #   it "returns a string" do
-  #     expect(result).to be_an String
-  #   end
-
-  #   it "returns tab delimited table rows" do
-  #     expect(result).to match /month\tchange\tprediction\n/
-  #   end
-  # end
-
-  # describe "#save_as" do
-  #   context "with a .csv extension" do
-  #     let(:filename) { 'tmp/test.csv' }
-
-  #     it "saves a csv file" do
-  #       File.delete filename if File.exist? filename
-  #       expect(File).not_to exist filename
-  #       expected = fixture 'csv_output.csv'
+      it "saves a csv file" do
+        File.delete filename if File.exist? filename
+        expect(File).not_to exist filename
+        expected = fixture 'basic.csv'
         
-  #       subject.save_as filename
+        subject.save_as filename
 
-  #       expect(File.read filename).to eq expected
-  #     end
-  #   end
+        expect(File.read filename).to eq expected
+      end
+    end
 
-  #   context "with a .tsv extension" do
-  #     let(:filename) { 'tmp/test.tsv' }
+    context "with a .tsv extension" do
+      let(:filename) { 'spec/tmp/test.tsv' }
 
-  #     it "saves a tsv file" do
-  #       File.delete filename if File.exist? filename
-  #       expect(File).not_to exist filename
-  #       expected = fixture 'tsv_output.tsv'
+      it "saves a tsv file" do
+        File.delete filename if File.exist? filename
+        expect(File).not_to exist filename
+        expected = fixture 'basic.tsv'
         
-  #       subject.save_as filename
+        subject.save_as filename
 
-  #       expect(File.read filename).to eq expected
-  #     end
-  #   end
-  # end
+        expect(File.read filename).to eq expected
+      end
+    end
+  end
 
-  # describe "#show" do
-  #   it "prints a pretty table" do
-  #     expected = fixture 'csv_show.txt'
-  #     expect{subject.show}.to output(expected).to_stdout
-  #   end
-  # end
+  describe "#show" do
+    it "prints a pretty table" do
+      expected = fixture 'basic.txt'
+      expect{subject.show}.to output(expected).to_stdout
+    end
+  end
 
-  # describe "#add_change_column" do
-  #   let(:subject) { CSV.table 'spec/fixtures/secondary.csv' }
+  describe "#to_ascii" do
+    it "converts to a pretty table" do
+      expect(subject.to_ascii).to eq fixture('basic.txt').strip
+    end
+  end
 
-  #   it "calculates properly" do
-  #     subject.add_change_column :interest, :change
-  #     expected = fixture 'secondary_show_change.txt'
-  #     expect(subject.to_ascii).to eq expected
-  #   end
-  # end
+  describe "#to_tsv" do
+    let(:result) { subject.to_tsv }
 
-  # describe "#add_change_pct_column" do
-  #   let(:subject) { CSV.table 'spec/fixtures/secondary.csv' }
-
-  #   it "calculates properly" do
-  #     subject.add_change_pct_column :interest, :change      
-  #     expected = fixture 'secondary_show_change_pct.txt'
-  #     expect(subject.to_ascii).to eq expected
-  #   end
-  # end
-
-  # describe "#add_trend_column" do
-  #   let(:subject) { CSV.table 'spec/fixtures/secondary.csv' }
-
-  #   it "calculates properly" do
-  #     subject.add_trend_column :interest, :change      
-  #     expected = fixture 'secondary_show_trend.txt'
-  #     expect(subject.to_ascii).to eq expected
-  #   end
-  # end
-
-  # describe "#add_ladder_column" do
-  #   let(:subject) { CSV.table 'spec/fixtures/ladder.csv' }
-
-  #   it "calculates properly" do
-  #     subject.add_ladder_column :change, :ladder
-  #     expected = fixture 'ladder.txt'
-  #     expect(subject.to_ascii).to eq expected
-  #   end
-
-  #   context "with a step param" do
-  #     it "calculates properly" do
-  #       subject.add_ladder_column :change, :ladder, step: 2
-  #       expected = fixture 'ladder2.txt'
-  #       expect(subject.to_ascii).to eq expected
-  #     end
-  #   end
-  # end
-
-  # describe "#offset_column" do
-  #   let(:subject) { CSV.table 'spec/fixtures/offset.csv' }
-    
-  #   it "moves the column one row up" do
-  #     subject.offset_column :target
-  #     expected = fixture 'offset1.txt'
-  #     expect(subject.to_ascii).to eq expected
-  #   end
-
-  #   context "with a 'by' argument" do
-  #     it "moves the column several row up" do
-  #       subject.offset_column :target, by: 2
-  #       expected = fixture 'offset2.txt'
-  #       expect(subject.to_ascii).to eq expected
-  #     end
-  #   end
-  # end
+    it "returns tab delimited table rows" do
+      expect(result).to eq fixture('basic.tsv')
+    end
+  end
 end
