@@ -58,6 +58,10 @@ module DataMix
       map { |val| val ? val.round(decimals) : nil }
     end
 
+    def uniq?
+      self.length == self.uniq.length
+    end
+
     def window(window_size, &_block)
       result = (0..(size-window_size)).map do |index|
         yield self[index...(index+window_size)]

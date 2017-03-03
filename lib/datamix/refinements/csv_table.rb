@@ -3,13 +3,16 @@ require 'terminal-table'
 module DataMix
   refine CSV::Table do
     
-    # Delete all rows that have one or more empty or nil values
+    # Delete all rows that have one or more empty or nil values.
     def delete_empty_rows
       delete_if do |row|
         row.fields.include? nil or row.include? ''
       end
     end
 
+    # Create a new column using a block. This method yields the given block 
+    # row by row, providing the index to the block and returns an array
+    # suitable for assigning to a new column.
     def derive(&_block)
       by_row.each_with_index.map do |_value, index|
         yield index
@@ -17,24 +20,31 @@ module DataMix
     end
 
     # Extract a regular expression pattern from a column and return a new
-    # column
+    # column.
     def extract(pattern, from:)
       by_row.map { |row| row[from][pattern] }
     end
 
+    # Iterate over all rows, providing the index to the block.
     def iterate(&_block)
-      by_row.each_with_index do |_value, index|
+      each_with_index do |_value, index|
         yield index
       end
     end
 
     # Join columns from another data table based on a mutual column
     def join(other, on:)
+      raise CSVError, "No such column '#{on}' in source" unless headers.include? on
+      raise CSVError, "No such column '#{on}' in other" unless other.headers.include? on
+      raise CSVError, "source[#{on}] is not unique" unless by_col[on].uniq?
+      raise CSVError, "other[#{on}] is not unique" unless other.by_col[on].uniq?
+
       by_row.each do |row|
         other_row = other.find { |r| r[on] == row[on] }
         other.headers.each do |col|
           next if col == on
-          row[col] = other_row ? other_row[col] : nil
+          new_col = headers.include?(col) ? "_#{col}" : col
+          row[new_col] = other_row ? other_row[col] : nil
         end
       end
     end
@@ -44,7 +54,7 @@ module DataMix
       headers.each do |col|
         delete col unless desired_cols.include? col
       end
-    end
+     end
 
     # Print the first 10 lines
     def preview
@@ -64,7 +74,8 @@ module DataMix
       delete from
     end
 
-    def round(col, decimals=0)
+    # Rounds all values in a column
+    def round(col, decimals: 0)
       by_col[col] = by_col[col].map { |val| val ? val.round(decimals) : nil }
     end
     
@@ -77,9 +88,14 @@ module DataMix
 
     # Print some or all rows
     def show(rows=:all)
+      puts to_ascii rows
+    end
+
+    # Returns a table string
+    def to_ascii(rows=:all)
       table = rows == :all ? by_row : first(rows)
       rows = table.map { |row| row.fields }
-      puts Terminal::Table.new headings: headers, rows: rows
+      Terminal::Table.new(headings: headers, rows: rows).to_s
     end
 
     # Convert table to a TSV string
