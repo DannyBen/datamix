@@ -1,8 +1,8 @@
 module DataMix
   refine NilClass do
-    def *(other); nil end
-    def +(other); nil end
-    def -(other); nil end
-    def /(other); nil end
+    def *(_other); nil end
+    def +(_other); nil end
+    def -(_other); nil end
+    def /(_other); nil end
   end
 end

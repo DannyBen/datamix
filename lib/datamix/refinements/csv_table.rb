@@ -54,7 +54,7 @@ module DataMix
       headers.each do |col|
         delete col unless desired_cols.include? col
       end
-     end
+    end
 
     # Print the first 10 lines
     def preview
