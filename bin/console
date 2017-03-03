@@ -2,4 +2,7 @@
 require "pry"
 require "datamix"
 using DataMix
+
+# rubocop:disable Lint/Debugger
 binding.pry
+# rubocop:enable Lint/Debugger
