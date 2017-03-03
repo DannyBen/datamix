@@ -11,7 +11,6 @@ module DataMix
     end
 
     def +(other)
-      binding.pry
       if other.respond_to? :each
         each_with_index do |val, index|
           self[index] = other[index] ? val + other[index] : nil
@@ -34,10 +33,10 @@ module DataMix
     def /(other)
       if other.respond_to? :each
         each_with_index do |val, index|
-          self[index] = other[index] ? val / other[index] : nil
+          self[index] = other[index] ? val / other[index].to_f : nil
         end
       else
-        map { |val| val / other }
+        map { |val| val / other.to_f }
       end
     end
 
