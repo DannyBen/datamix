@@ -1,6 +1,6 @@
-# keep
+# rename
 
-Keep only selected columns, discard the rest.
+Rename a column.
 
 ```ruby
 require 'datamix'
@@ -8,12 +8,8 @@ using DataMix
 
 sp500 = file '../_data/sp500.csv'
 
-puts "Headers:"
-p sp500.headers
-
 sp500.keep :date, :close
-
-puts "\nPreview:"
+sp500.rename :close, to: :price
 sp500.preview
 
 ```
@@ -21,12 +17,8 @@ sp500.preview
 # Output
 
 ```
-Headers:
-[:date, :open, :high, :low, :close, :volume, :adjusted_close]
-
-Preview:
 +------------+-------------+
-| date       | close       |
+| date       | price       |
 +------------+-------------+
 | 2015-03-11 | 2040.23999  |
 | 2015-03-12 | 2065.949951 |

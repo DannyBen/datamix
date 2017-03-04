@@ -17,6 +17,7 @@ sp500[:month] = sp500.extract /\d{4}-\d{2}/, from: :date
 sp500.preview
 
 ```
+
 # Output
 
 ```

@@ -17,6 +17,7 @@ end
 sp500.preview
 
 ```
+
 # Output
 
 ```

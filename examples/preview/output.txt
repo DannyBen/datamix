@@ -1,21 +1,3 @@
-# file
-
-The `file` method is a syntactic sugar around `CSV.table`.
-
-It retusns a `CSV::Table` object.
-
-```ruby
-require 'datamix'
-using DataMix
-
-sp500 = file '../_data/basic.csv'
-sp500.preview
-
-```
-
-# Output
-
-```
 +------------+-------+
 | date       | price |
 +------------+-------+
@@ -30,4 +12,3 @@ sp500.preview
 | 2015-03-23 | 2107  |
 | 2015-03-24 | 2103  |
 +------------+-------+
-```

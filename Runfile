@@ -27,7 +27,7 @@ usage 'generate [EXAMPLE]'
 help  'Generate output file for a given example'
 action :generate do |args|
   if args['EXAMPLE']
-    generate_example "examples/#{args['EXAMPLE']}/"
+    generate_example "examples/#{args['EXAMPLE']}"
   else
     generate_all_examples
   end
@@ -73,6 +73,7 @@ def generate_examples_index
 end
 
 def generate_example(dir)
+  dir = "#{dir}/" unless dir[-1] == '/'
   generate_example_output dir
   generate_example_readme dir
 end
@@ -104,7 +105,7 @@ def generate_example_readme(dir)
       f.puts "#{info}\n\n" if info
       f.puts "```ruby\n"
       f.puts "#{source}\n\n"
-      f.puts "```\n"
+      f.puts "```\n\n"
       f.puts "# Output\n\n```\n#{output}\n```\n" if output
     end
   end

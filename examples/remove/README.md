@@ -17,6 +17,7 @@ puts "\nPreview:"
 sp500.preview
 
 ```
+
 # Output
 
 ```

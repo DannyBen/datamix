@@ -1,8 +1,6 @@
-# file
+# preview
 
-The `file` method is a syntactic sugar around `CSV.table`.
-
-It retusns a `CSV::Table` object.
+Print the first 10 rows.
 
 ```ruby
 require 'datamix'
