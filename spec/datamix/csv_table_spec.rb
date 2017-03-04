@@ -51,7 +51,6 @@ describe CSV::Table do
     it "can be assigned to a new column" do
       subject[:new_col] = result
       expect(subject.headers).to eq [:date, :day, :value, :new_col]
-
     end
   end
 

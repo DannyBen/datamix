@@ -39,11 +39,13 @@ module DataMix
       raise CSVError, "source[#{on}] is not unique" unless by_col[on].uniq?
       raise CSVError, "other[#{on}] is not unique" unless other.by_col[on].uniq?
 
+      original_headers = headers.dup
+
       by_row.each do |row|
         other_row = other.find { |r| r[on] == row[on] }
         other.headers.each do |col|
           next if col == on
-          new_col = headers.include?(col) ? "_#{col}" : col
+          new_col = original_headers.include?(col) ? "_#{col}" : col
           row[new_col] = other_row ? other_row[col] : nil
         end
       end
