@@ -33,7 +33,6 @@ action :generate do |args|
   end
 end
 
-usage 'watch'
 help 'Watch example files and rerun them on change'
 action :watch do |args|
   glob = "examples/**/*.rb"
@@ -52,11 +51,26 @@ endcommand
 
 def generate_all_examples
   glob = Dir['examples/*/'].reject { |dir| dir =~ /\/_/ }
-  glob.each do |dir|
-    generate_example dir
-  end
+  glob.each { |dir| generate_example dir }
+  generate_examples_index
 end
 
+def generate_examples_index
+  glob = Dir['examples/*/'].reject { |dir| dir =~ /\/_/ }
+
+  content = ["# Examples Index\n\nExample | Description\n---|---"]
+  glob.each do |dir|
+    example = File.basename dir
+    description = File.read("#{dir}info.md").strip.split("\n").first
+    link = "https://github.com/DannyBen/datamix/tree/examples/examples/#{example}##{example}"
+    content << "[#{example}](#{link}) | #{description}"
+  end
+
+  content = content.join "\n"
+
+  say_status :generate, "examples/README.md"
+  File.write "examples/README.md", content
+end
 
 def generate_example(dir)
   generate_example_output dir
