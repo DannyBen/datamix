@@ -1,4 +1,6 @@
 require "runfile-tasks"
+require "filewatcher"
+require "pry"
 require_relative 'lib/datamix'
 
 name    "DataMix Developer Toolbelt"
@@ -17,4 +19,83 @@ end
 help   "Run interactive console"
 action :console, :c do
   run "bundle exec bin/console"
+end
+
+command "examples"
+
+usage 'generate [EXAMPLE]'
+help  'Generate output file for a given example'
+action :generate do |args|
+  if args['EXAMPLE']
+    generate_example "examples/#{args['EXAMPLE']}/"
+  else
+    generate_all_examples
+  end
+end
+
+usage 'watch'
+help 'Watch example files and rerun them on change'
+action :watch do |args|
+  glob = "examples/**/*.rb"
+  
+  say_status :watch, glob
+
+  FileWatcher.new(glob).watch do |filename, event|
+    say_status event, filename
+    next if event == :delete
+    dir = File.dirname filename
+    generate_example dir
+  end
+end
+
+help "Generate readme for examples folder"
+action :readme do
+  say_status :invoke, 'examples'
+
+  glob = Dir['examples/*/'].reject { |dir| dir =~ /\/_/ }
+
+  source_file = 'example.rb'
+  output_file = 'output.txt'
+  info_file   = 'info.md'
+  readme_file = 'README.md'
+
+  glob.each do |dir|
+    say_status :process, dir
+
+    Dir.chdir dir do
+      source = File.read(source_file).strip
+      output = File.exist?(output_file) ? File.read(output_file).strip : false
+      info   = File.exist?(info_file) ? File.read(info_file).strip : false
+      title  = File.basename dir
+
+      File.open(readme_file, 'w') do |f|
+        f.puts "# #{title}\n\n"
+        f.puts "#{info}\n\n" if info
+        f.puts "```ruby\n"
+        f.puts "#{source}\n\n"
+        f.puts "```\n"
+        f.puts "# Output\n\n```\n#{output}\n```\n" if output
+      end
+
+      say_status :write, "#{dir}#{readme_file}"
+    end
+  end
+end
+
+endcommand
+
+def generate_all_examples
+  glob = Dir['examples/*/'].reject { |dir| dir =~ /\/_/ }
+  glob.each do |dir|
+    generate_example dir
+  end
+end
+
+
+def generate_example(dir)
+  say_status :generate, "#{dir}output.txt"
+  Dir.chdir dir do
+    output = `ruby example.rb`
+    File.write "output.txt", output
+  end
 end

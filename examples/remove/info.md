@@ -1,0 +1,1 @@
+Remove selected columns.
