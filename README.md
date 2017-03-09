@@ -80,5 +80,10 @@ sp500.preview
 # +------------+---------+--------+-------+
 ```
 
+Examples
+--------------------------------------------------
+
+See the [examples index][2] for more examples.
 
 [1]: https://ruby-doc.org/stdlib-2.3.1/libdoc/csv/rdoc/CSV/Table.html
+[2]: https://github.com/DannyBen/datamix/tree/master/examples#examples-index
