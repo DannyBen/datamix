@@ -13,3 +13,7 @@ Example | Description
 [remove](https://github.com/DannyBen/datamix/tree/examples/examples/remove#remove) | Remove selected columns.
 [rename](https://github.com/DannyBen/datamix/tree/examples/examples/rename#rename) | Rename a column.
 [round](https://github.com/DannyBen/datamix/tree/examples/examples/round#round) | Round all values in a column.
+[save_as](https://github.com/DannyBen/datamix/tree/examples/examples/save_as#save_as) | Save the table as CSV or TSV.
+[show](https://github.com/DannyBen/datamix/tree/examples/examples/show#show) | Print the entire table, or a specified number of rows.
+[to_ascii](https://github.com/DannyBen/datamix/tree/examples/examples/to_ascii#to_ascii) | Returns the entire table or a specified number of rows as a string.
+[to_tsv](https://github.com/DannyBen/datamix/tree/examples/examples/to_tsv#to_tsv) | Returns a tab delimited version of the table.

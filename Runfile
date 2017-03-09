@@ -106,7 +106,7 @@ def generate_example_readme(dir)
       f.puts "```ruby\n"
       f.puts "#{source}\n\n"
       f.puts "```\n\n"
-      f.puts "# Output\n\n```\n#{output}\n```\n" if output
+      f.puts "# Output\n\n```\n#{output}\n```\n" unless output.empty?
     end
   end
 end
