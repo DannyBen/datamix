@@ -62,7 +62,7 @@ def generate_examples_index
   glob.each do |dir|
     example = File.basename dir
     description = File.read("#{dir}info.md").strip.split("\n").first
-    link = "https://github.com/DannyBen/datamix/tree/examples/examples/#{example}##{example}"
+    link = "https://github.com/DannyBen/datamix/tree/master/examples/#{example}##{example}"
     content << "[#{example}](#{link}) | #{description}"
   end
 
