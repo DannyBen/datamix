@@ -1,1 +1,1 @@
-Extract a regular expression pattern from a column and return a new column.
+Shift column data one or more rows up or down.
