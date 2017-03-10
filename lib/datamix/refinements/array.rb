@@ -29,6 +29,10 @@ module DataMix
       offset rows
     end
 
+    def next(rows=1)
+      offset -rows
+    end
+
     def round(decimals=0)
       map { |val| val ? val.round(decimals) : nil }
     end

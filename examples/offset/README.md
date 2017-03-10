@@ -13,7 +13,8 @@ data = file '../_data/basic.csv'
 # shifted 2 rows down. Supports negative values, to shift up instead.
 data[:offset] = data[:price].offset 2
 
-# Use the #prev method as a shortcut to "offset 1"
+# Use the #prev method as a shortcut to `offset 1`, or the #next method
+# as a shortcut to `offset -1`.
 data[:prev] = data[:price].prev
 data.preview
 

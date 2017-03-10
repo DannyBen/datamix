@@ -89,6 +89,21 @@ describe Array do
     end
   end
 
+  describe "#next" do
+    context "without an argument" do
+      it "behaves like #offset -1" do
+        expect(subject.next).to eq subject.offset(-1)
+      end
+    end
+
+    context "with an argument" do
+      it "behaves like #offset -N" do
+        expect(subject.next 2).to eq subject.offset(-2)
+      end
+    end
+  end
+
+
   describe "#round" do
     let(:subject) { [1.234, 2.345, 3.456, 4.567] }
 
