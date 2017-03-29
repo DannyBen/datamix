@@ -136,6 +136,15 @@ describe CSV::Table do
     end
   end
 
+  describe "#resample" do
+    let(:subject) { CSV.table 'spec/fixtures/resample_me.csv' }
+
+    it "creates a similar table" do
+      subject.resample 2..3, except: :year, seed: 232
+      expect(subject.to_ascii).to eq fixture('resample_me.txt')
+    end
+  end
+
   describe "#round" do
     let(:subject) { CSV.table 'spec/fixtures/floats.csv' }
 

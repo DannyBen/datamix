@@ -103,6 +103,35 @@ describe Array do
     end
   end
 
+  describe "#resample" do
+    let(:subject) { [10,11,12,11,12,13,12,13,14,13,12,11] }
+
+    it "creates a similar series" do
+      expected = [13, 12, 13, 12, 11, 10, 11, 12, 11, 10, 11, 12]
+      expect(subject.resample 2..3, seed: 123).to eq expected
+    end
+
+    it "normalizes the minimum value" do
+      expect(subject.min).to eq subject.resample(2..3).min
+    end
+
+    context "with a monotonic sequence" do
+      let(:subject) { (1..10).to_a }
+
+      it "should not modify the series" do
+        expect(subject.resample 2..3, seed: 564).to eq subject
+      end
+    end
+
+    context "when the last chunk has one element" do
+      let(:subject) { (1..7).to_a }
+
+      it "merges the last two chunks" do
+        expect(subject.resample 3..3).to eq subject
+      end
+    end
+
+  end
 
   describe "#round" do
     let(:subject) { [1.234, 2.345, 3.456, 4.567] }

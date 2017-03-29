@@ -33,6 +33,53 @@ module DataMix
       offset -rows
     end
 
+    def resample(chunk_range, seed: nil)
+      generator = seed ? Random.new(seed) : Random.new
+
+      # Save min value, we will adjust the result to it later
+      min_value = min
+
+      # Split the array to chunks
+      chunks = []
+      clone = dup
+      while !clone.empty? do
+        seam = generator.rand(chunk_range) - 1
+        chunks.push clone.slice! 0..seam
+      end
+
+      # If the last chunk contains one element only, merge with the 
+      # previous chunk
+      if chunks.last.size == 1
+        chunks[chunks.size-2].push chunks.last.first
+        chunks = chunks.first chunks.size-1
+      end
+
+      # Shuffle the chunks
+      chunks = chunks.sample chunks.size, random: generator
+
+      # Adjust each chunk so that its beginning connects with the previous
+      # chunk normally. For this we calculate the median change value of the 
+      # array.
+      chunks.each_with_index do |chunk, i|
+        next if i == 0
+        connector = chunks[i-1].last
+
+        # Calculate an array of changes, and then take a random sample
+        diff = chunk.each_cons(2).map { |a,b| b-a }.sample random: generator
+
+        delta = diff + connector - chunk.first
+        chunks[i].map! { |val| val+delta }
+      end
+
+      # Merge chunks to a flat array
+      result = chunks.flatten
+
+      # Move the entire array up or down so that its min value is equal to 
+      # the original min value recorded at the beginning.
+      diff = result.min - min_value
+      result.map! { |val| val-diff }
+    end
+
     def round(decimals=0)
       map { |val| val ? val.round(decimals) : nil }
     end

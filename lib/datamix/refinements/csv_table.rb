@@ -76,6 +76,17 @@ module DataMix
       delete from
     end
 
+    # Create a similar data table with resampled data
+    def resample(range, except: [], seed: nil)
+      except = [except] unless except.is_a? Array
+      cols = headers.reject { |h| except.include? h }
+      seed ||= Time.now.to_f
+
+      cols.each do |col|
+        by_col[col] = by_col[col].resample range, seed: seed
+      end
+    end
+
     # Rounds all values in a column
     def round(col, decimals: 0)
       by_col[col] = by_col[col].map { |val| val ? val.round(decimals) : nil }

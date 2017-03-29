@@ -14,6 +14,7 @@ Example | Description
 [preview](https://github.com/DannyBen/datamix/tree/master/examples/preview#preview) | Print the first 10 rows.
 [remove](https://github.com/DannyBen/datamix/tree/master/examples/remove#remove) | Remove selected columns.
 [rename](https://github.com/DannyBen/datamix/tree/master/examples/rename#rename) | Rename a column.
+[resample](https://github.com/DannyBen/datamix/tree/master/examples/resample#resample) | Resample a single column or an entire table.
 [round](https://github.com/DannyBen/datamix/tree/master/examples/round#round) | Round all values in a column.
 [save_as](https://github.com/DannyBen/datamix/tree/master/examples/save_as#save_as) | Save the table as CSV or TSV.
 [show](https://github.com/DannyBen/datamix/tree/master/examples/show#show) | Print the entire table, or a specified number of rows.
