@@ -3,7 +3,7 @@ require "filewatcher"
 require "pry"
 require_relative 'lib/datamix'
 
-name    "DataMix Developer Toolbelt"
+title   "DataMix Developer Toolbelt"
 summary "Runfile tasks for building the DataMix gem"
 version DataMix::VERSION
 

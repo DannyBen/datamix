@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'terminal-table', '~> 1.7'
 
-  s.add_development_dependency 'runfile', '~> 0.8'
+  s.add_development_dependency 'runfile', '~> 0.9'
   s.add_development_dependency 'runfile-tasks', '~> 0.4'
   s.add_development_dependency 'rspec', '~> 3.5'
   s.add_development_dependency 'rdoc', '~> 5.0'
