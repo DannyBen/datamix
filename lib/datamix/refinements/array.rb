@@ -21,7 +21,7 @@ module DataMix
       if rows >= 0
         Array.new(padding).concat self[0...(self.size-rows)]
       else
-        self[(rows.abs)...(self.size)].concat Array.new(padding)
+        dup[(rows.abs)...(self.size)].concat Array.new(padding)
       end
     end
 
@@ -99,13 +99,15 @@ module DataMix
     private
 
     def math_operation(other)
+      copy = dup
       if other.respond_to? :each
         each_with_index do |val, index|
-          self[index] = other[index] ? yield(val, other[index]) : nil
+          copy[index] = other[index] ? yield(val, other[index]) : nil
         end
       else
-        map { |val| yield(val, other) }
+        copy.map { |val| yield(val, other) }
       end
+      copy
     end
 
   end
