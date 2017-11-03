@@ -104,10 +104,10 @@ module DataMix
         each_with_index do |val, index|
           copy[index] = other[index] ? yield(val, other[index]) : nil
         end
+        copy
       else
         copy.map { |val| yield(val, other) }
       end
-      copy
     end
 
   end
