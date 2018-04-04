@@ -4,7 +4,6 @@ DataMix - DSL for manipulating tabular data
 [![Gem](https://img.shields.io/gem/v/datamix.svg?style=flat-square)](https://rubygems.org/gems/datamix)
 [![Travis](https://img.shields.io/travis/DannyBen/datamix.svg?style=flat-square)](https://travis-ci.org/DannyBen/datamix)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/DannyBen/datamix.svg?style=flat-square)](https://codeclimate.com/github/DannyBen/datamix)
-[![Issues](https://img.shields.io/codeclimate/issues/DannyBen/datamix.svg?style=flat-square)](https://codeclimate.com/github/DannyBen/datamix)
 [![Gemnasium](https://img.shields.io/gemnasium/DannyBen/datamix.svg?style=flat-square)](https://gemnasium.com/DannyBen/datamix)
 
 ---
