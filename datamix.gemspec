@@ -19,14 +19,4 @@ Gem::Specification.new do |s|
   # Locking to 1.7.3 since 1.8.0 seem to be bugged
   # https://github.com/tj/terminal-table/issues/103
   s.add_runtime_dependency 'terminal-table', '1.7.3'
-
-  s.add_development_dependency 'runfile', '~> 0.9'
-  s.add_development_dependency 'runfile-tasks', '~> 0.4'
-  s.add_development_dependency 'rspec', '~> 3.5'
-  s.add_development_dependency 'rdoc', '~> 5.0'
-  s.add_development_dependency 'simplecov', '~> 0.13'
-  s.add_development_dependency 'yard', '~> 0.9'
-  s.add_development_dependency 'pry', '~> 0.10'
-  s.add_development_dependency 'pry-doc', '~> 0.10'
-  s.add_development_dependency 'filewatcher', '~> 0.5'
 end
