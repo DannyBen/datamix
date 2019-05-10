@@ -4,8 +4,6 @@ DataMix - DSL for manipulating tabular data
 [![Gem Version](https://badge.fury.io/rb/datamix.svg)](https://badge.fury.io/rb/datamix)
 [![Build Status](https://travis-ci.com/DannyBen/datamix.svg?branch=master)](https://travis-ci.com/DannyBen/datamix)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7af46250a35a02dfa0d4/maintainability)](https://codeclimate.com/github/DannyBen/datamix/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/7af46250a35a02dfa0d4/test_coverage)](https://codeclimate.com/github/DannyBen/datamix/test_coverage)
-
 
 ---
 
