@@ -109,7 +109,7 @@ module DataMix
       table = rows == :all ? by_row : first(rows)
       rows = table.map { |row| row.fields }
       table = TTY::Table.new headers, rows
-      result = table.render :unicode, padding: [0,1]
+      result = table.render :ascii, padding: [0,1]
       "#{result}\n"
     end
 
