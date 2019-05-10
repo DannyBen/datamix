@@ -7,11 +7,10 @@ Bundler.require :default, :development
 
 include DataMix
 
-def fixture(filename, data=nil)
-  if data
-    File.write "spec/fixtures/#{filename}", data
-    raise "Warning: Fixture data was written.\nThis is perfectly fine if it was intended,\nbut tests cannot proceed with it as a precaution."
-  else
-    File.read "spec/fixtures/#{filename}"
-  end
+RSpec.configure do |c|
+  c.fixtures_path = 'spec/approvals'
+end
+
+def fixture(filename)
+  File.read "spec/fixtures/#{filename}"
 end
