@@ -1,4 +1,4 @@
-require 'terminal-table'
+require 'tty-table'
 
 module DataMix
   refine CSV::Table do
@@ -108,7 +108,9 @@ module DataMix
     def to_ascii(rows=:all)
       table = rows == :all ? by_row : first(rows)
       rows = table.map { |row| row.fields }
-      Terminal::Table.new(headings: headers, rows: rows).to_s
+      table = TTY::Table.new headers, rows
+      result = table.render :ascii, padding: [0,1]
+      "#{result}\n"
     end
 
     # Convert table to a TSV string

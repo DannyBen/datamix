@@ -71,7 +71,7 @@ describe CSV::Table do
 
     it "should merge with another csv on a given column" do
       subject.join other, on: :date
-      expect(subject.to_ascii).to eq fixture('join.txt')
+      expect(subject.to_ascii).to match_fixture('join.txt')
     end
 
     context "with columns that exist in both tables" do
@@ -110,8 +110,7 @@ describe CSV::Table do
 
   describe "#preview" do
     it "prints a pretty table" do
-      expected = fixture 'basic.txt'
-      expect{subject.preview}.to output(expected).to_stdout
+      expect{subject.preview}.to output_fixture('basic.txt')
     end
   end
 
@@ -141,7 +140,7 @@ describe CSV::Table do
 
     it "creates a similar table" do
       subject.resample 2..3, except: :year, seed: 232
-      expect(subject.to_ascii).to eq fixture('resample_me.txt')
+      expect(subject.to_ascii).to match_fixture('resample_me.txt')
     end
   end
 
@@ -180,25 +179,23 @@ describe CSV::Table do
       it "saves a tsv file" do
         File.delete filename if File.exist? filename
         expect(File).not_to exist filename
-        expected = fixture 'basic.tsv'
         
         subject.save_as filename
 
-        expect(File.read filename).to eq expected
+        expect(File.read filename).to match_fixture('basic.tsv')
       end
     end
   end
 
   describe "#show" do
     it "prints a pretty table" do
-      expected = fixture 'basic.txt'
-      expect{subject.show}.to output(expected).to_stdout
+      expect{ subject.show }.to output_fixture('basic.txt')
     end
   end
 
   describe "#to_ascii" do
-    it "converts to a pretty table" do
-      expect(subject.to_ascii).to eq fixture('basic.txt').strip
+    it "converts to a pretty table", :focus do
+      expect(subject.to_ascii).to match_fixture('basic.txt')
     end
   end
 
@@ -206,7 +203,7 @@ describe CSV::Table do
     let(:result) { subject.to_tsv }
 
     it "returns tab delimited table rows" do
-      expect(result).to eq fixture('basic.tsv')
+      expect(result).to match_fixture('basic.tsv')
     end
   end
 end

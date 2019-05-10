@@ -16,7 +16,5 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.required_ruby_version = ">= 2.1.0"
 
-  # Locking to 1.7.3 since 1.8.0 seem to be bugged
-  # https://github.com/tj/terminal-table/issues/103
-  s.add_runtime_dependency 'terminal-table', '1.7.3'
+  s.add_runtime_dependency 'tty-table', '0.10'
 end
