@@ -3,15 +3,12 @@ source "https://rubygems.org"
 gem 'byebug'
 gem 'filewatcher'
 gem 'pry'
-gem 'pry-doc'
-gem 'rdoc'
 gem 'rspec'
 gem 'rspec_approvals', '>= 0.9.1'
 gem 'colsole'
 gem 'runfile'
-gem 'runfile-tasks'
+gem 'runfile-tasks', '>= 1.0.2'
 gem 'simplecov'
-gem 'yard'
 
 gemspec
 
