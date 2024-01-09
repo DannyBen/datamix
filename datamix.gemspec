@@ -16,6 +16,6 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.required_ruby_version = ">= 3.0"
 
-  s.add_runtime_dependency 'csv', '~> 3.2'
-  s.add_runtime_dependency 'tty-table', '~> 0.11'
+  s.add_dependency 'csv', '~> 3.2'
+  s.add_dependency 'tty-table', '~> 0.11'
 end
