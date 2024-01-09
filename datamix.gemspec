@@ -14,7 +14,8 @@ Gem::Specification.new do |s|
   s.files       = Dir['README.md', 'lib/**/*.*']
   s.homepage    = 'https://github.com/DannyBen/datamix'
   s.license     = 'MIT'
-  s.required_ruby_version = ">= 2.7"
+  s.required_ruby_version = ">= 3.0"
 
+  s.add_runtime_dependency 'csv', '~> 3.2'
   s.add_runtime_dependency 'tty-table', '~> 0.11'
 end
