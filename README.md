@@ -1,6 +1,8 @@
 DataMix - DSL for manipulating tabular data
 ==================================================
 
+![repocard](https://repocard.dannyben.com/svg/datamix.svg)
+
 This library refines Ruby's [`CSV::Table`][1] and `Array` objects to provide 
 a DSL for manipulating tabular data.
 
